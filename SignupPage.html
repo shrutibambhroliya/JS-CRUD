@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(238, 174, 202);
+            background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(61, 53, 138, 1) 90%);
+
+        }
+
+        .main {
+            font-family: sans-serif;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .login {
+            background: rgb(33, 62, 62);
+            background: linear-gradient(96deg, rgba(33, 62, 62, 1) 57%, rgba(175, 127, 26, 1) 100%);
+
+            width: 300px;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        label {
+            margin: 0;
+            font-size: 20px;
+            color: rgb(255, 255, 255);
+        }
+
+        input {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 5px 0;
+            border-radius: 5px;
+            border: none;
+            margin-top: 5px;
+            background-color: rgb(165, 160, 160);
+
+
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .main1 {
+            display: flex;
+        }
+
+        .main1 label {
+            display: flex;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+
+        .main1 input {
+            margin: 0 5px;
+
+        }
+
+        h1 {
+            text-transform: capitalize;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h1>signup page</h1>
+        <div class="login">
+            <label for="name"> username:
+                <input type="text" id="name">
+            </label>
+            <label for="email">email:
+                <input type="text" id="email">
+            </label>
+            <label for="password">password:
+                <input type="text" id="password">
+            </label>
+
+
+
+            <div class="btn">
+
+                <button onclick="logindata()">submit</button>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        var index = localStorage.getItem("index");
+        var storeData = JSON.parse(localStorage.getItem("names")) || [];
+        const logindata = () => {
+            const nameData = document.getElementById("name").value;
+            const emailData = document.getElementById("email").value;
+            const passwordData = document.getElementById("password").value;
+
+            if (nameData == "" || emailData == "" || passwordData == "") {
+                alert("please enter value");
+            }
+            else if (index) {
+                storeData[index] = {
+                    name: nameData,
+                    email: emailData,
+                    password: passwordData
+                }
+                window.location.href = 'Table.html';
+                let str = JSON.stringify(storeData);
+                localStorage.setItem("names", str);
+                localStorage.setItem("index", "");
+
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+                document.getElementById("password").value = "";
+            }
+            else {
+                const userdata = {
+                    name: nameData,
+                    email: emailData,
+                    password: passwordData
+                }
+                storeData.push(userdata);
+                let str = JSON.stringify(storeData);
+                localStorage.setItem("names", str);
+
+                window.location.href = 'LoginPage.html';
+
+            }
+
+
+        }
+
+        const showdata = () => {
+
+
+            if (index) {
+                console.log("index", index);
+                const nameData = document.getElementById("name").value = storeData[index].name;
+                const emailData = document.getElementById("email").value = storeData[index].email;
+                const passwordData = document.getElementById("password").value = storeData[index].password;
+            }
+
+        }
+        showdata();
+
+
+
+
+    </script>
+</body>
+
+</html>

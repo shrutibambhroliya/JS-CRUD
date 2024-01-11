@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: rgb(238, 174, 202);
+            background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(61, 53, 138, 1) 90%);
+        }
+
+        table {
+            margin-top: 3%;
+            width: 70%;
+            height: auto;
+            background: rgb(33, 62, 62);
+            background: linear-gradient(96deg, rgba(33, 62, 62, 1) 57%, rgba(175, 127, 26, 1) 100%);
+
+        }
+
+        th {
+
+            font-size: 22px;
+        }
+
+        td {
+            font-size: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 3px solid rgb(6, 5, 5);
+            text-align: center;
+            color: rgb(214, 197, 197);
+        }
+
+        td,
+        th {
+            padding: 10px;
+        }
+
+        .main {
+            padding: 8px 25px;
+            font-size: 18px;
+            text-transform: capitalize;
+            background-color: rgb(178, 64, 64);
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>no</th>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>password</th>
+                    <th>action</th>
+
+                </tr>
+            </thead>
+            <tbody id="result">
+
+            </tbody>
+        </table>
+
+
+    </center>
+
+    <script>
+        let data = JSON.parse(localStorage.getItem("names"));
+        getData();
+        function getData() {
+            const added = document.getElementById("result");
+            added.innerHTML = "";
+
+            data.map((item, index) => {
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${item.name}</td>
+            <td>${item.email}</td>
+            <td>${item.password}</td>
+            <td>
+                <button class="main" onclick="editRow(${index})">edit</button>
+                    <button class="main" onclick="deleteRow(${index})">delete</button>
+            </td>
+            `;
+                added.appendChild(newRow);
+            });
+        }
+        function deleteRow(index) {
+            data = data.filter((item, i) => i !== index);
+            localStorage.setItem("names", JSON.stringify(data));
+            getData();
+        }
+        function editRow(index) {
+            window.location.href = 'SignupPage.html';
+            localStorage.setItem("index", index);
+
+        }
+
+    </script>
+</body>
+
+</html>
